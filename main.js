@@ -103,7 +103,7 @@ fetch(appCreateUrl, appCreateParam)
 
         localStorage.setItem('appSecret', appSecret);
 
-        const generateSessionUrl = 'https://'+host+'/api/auth/session/generate'
+        const generateSessionUrl = 'https://'+SETTINGS.misskey.host+'/api/auth/session/generate'
         const generateSessionParam = {
             method: 'POST',
             headers: {

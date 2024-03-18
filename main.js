@@ -37,6 +37,7 @@ const appSecret = qs.secret
 
 if (accessToken && appSecret) {
     const i = CryptoJS.SHA256(accessToken + appSecret).toString(CryptoJS.enc.Hex)
+    console.log(i)
 
     function sendNote() {
         const noteUrl = 'https://'+SETTINGS.misskey.host+'/api/notes/create'

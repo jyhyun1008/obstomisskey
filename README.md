@@ -24,7 +24,7 @@ ummmmmmmmm..... I think you don't need this software due to 2 reasons...
 1. You can access Twitch.... but not in South Korea. we need to use Chzzk, which is NOT yet developed for API users.
 2. I think many of you have account in Mastodon, not Misskey... Because Misskey is not much kind to non-japanese developers;;
 
-So, this software basically, publishes some notes on MISSKEY BASED SOFTWARE while you broadcasting through OBS.
+So, this software basically, publishes some notes on MISSKEY BASED SOFTWARE while you broadcast through OBS.
 
 Your OBS -> Browser source -> notes on misskey
 

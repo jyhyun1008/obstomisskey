@@ -39,21 +39,22 @@ if (accessToken && appSecret) {
     const i = CryptoJS.SHA256(accessToken + appSecret).toString(CryptoJS.enc.Hex)
     console.log(i)
 
+    const noteUrl = 'https://'+SETTINGS.misskey.host+'/api/notes/create'
+    const noteText = SETTINGS.misskey.noteText.replace('{url}', SETTINGS.live.url)
+    const noteParam = {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            i: i,
+            text: noteText,
+            visibility: SETTINGS.misskey.visibility
+        }),
+        credentials: 'omit'
+    }
+
     function sendNote() {
-        const noteUrl = 'https://'+SETTINGS.misskey.host+'/api/notes/create'
-        const noteText = SETTINGS.misskey.noteText.replace('{url}', SETTINGS.live.url)
-        const noteParam = {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify({
-                i: i,
-                text: noteText,
-                visibility: SETTINGS.misskey.visibility
-            }),
-            credentials: 'omit'
-        }
         fetch(noteUrl, noteParam)
         .then((resultData) => {return resultData.json()})
         .then(result)
@@ -63,7 +64,15 @@ if (accessToken && appSecret) {
     }
 
     window.addEventListener('obsRecordingStarting', function(event) {
-        note = setInterval(sendNote, SETTINGS.misskey.intervalHour*3600*1000)
+        fetch(noteUrl, noteParam)
+        .then((resultData) => {return resultData.json()})
+        .then((result) => {
+            note = setInterval(sendNote, SETTINGS.misskey.intervalHour*3600*1000)
+        })
+        .catch(err => { 
+            document.querySelector('body').innerHTML += '<div>먼지몰라두 망해써여...힝</div>'
+         })
+        
     })
 
     window.addEventListener('obsRecordingStopping', function(event) {

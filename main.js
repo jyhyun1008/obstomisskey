@@ -57,7 +57,9 @@ if (accessToken && appSecret) {
         fetch(noteUrl, noteParam)
         .then((resultData) => {return resultData.json()})
         .then(result)
-        .catch(err => { throw err })
+        .catch(err => { 
+            document.querySelector('body').innerHTML += '<div>먼지몰라두 망해써여...힝</div>'
+         })
     }
 
     window.addEventListener('obsRecordingStarting', function(event) {

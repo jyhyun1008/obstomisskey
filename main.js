@@ -79,3 +79,50 @@ if (accessToken && appSecret) {
         clearInterval(note)
     })
 }
+
+const isNew = qs.newbie;
+
+const appCreateUrl = 'https://'+SETTINGS.misskey.host+'/api/app/create'
+const appCreateParam = {
+	method: 'POST',
+    headers: {
+    	'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+    	name: "obstomisskey",
+        description: "make obs to note on misskey",
+        permission: ["write:notes"],
+        callbackUrl: window.location.host + window.location.pathname
+    })
+}
+fetch(appCreateUrl, appCreateParam)
+.then((createdAppData) => {return createdAppData.json()})
+.then((createdAppRes) => {
+    if (createdAppRes.secret) {
+        var appSecret = createdAppRes.secret
+
+        localStorage.setItem('appSecret', appSecret);
+
+        const generateSessionUrl = 'https://'+host+'/api/auth/session/generate'
+        const generateSessionParam = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify({
+                appSecret: appSecret
+            })
+        }
+
+        fetch(generateSessionUrl, generateSessionParam)
+        .then((sessionData) => {return sessionData.json()})
+        .then((sessionRes) => {
+            if (sessionRes.url) {
+                var authUrl = sessionRes.url
+                location.href = authUrl
+            }
+        })
+        .catch((error) => console.log(error));
+    }
+})
+.catch((error) => console.log(error));

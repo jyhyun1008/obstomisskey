@@ -92,7 +92,7 @@ const appCreateParam = {
     	name: "obstomisskey",
         description: "make obs to note on misskey",
         permission: ["write:notes"],
-        callbackUrl: window.location.host + window.location.pathname
+        callbackUrl: 'https://' + window.location.host + window.location.pathname
     })
 }
 fetch(appCreateUrl, appCreateParam)

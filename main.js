@@ -63,7 +63,7 @@ if (accessToken && appSecret) {
          })
     }
 
-    window.addEventListener('obsRecordingStarting', function(event) {
+    window.addEventListener('obsStreamingStarting', function(event) {
         fetch(noteUrl, noteParam)
         .then((resultData) => {return resultData.json()})
         .then((result) => {
@@ -75,7 +75,7 @@ if (accessToken && appSecret) {
         
     })
 
-    window.addEventListener('obsRecordingStopping', function(event) {
+    window.addEventListener('obsStreamingStopping', function(event) {
         clearInterval(note)
     })
 }
@@ -124,6 +124,31 @@ if (isNew) {
             })
             .catch((error) => console.log(error));
         }
+    })
+    .catch((error) => console.log(error));
+}
+
+const token = qs.token;
+if (token) {
+
+    const appSecret = localStorage.getItem('appSecret');
+
+    const userKeyUrl = 'https://'+host+'/api/auth/session/userkey'
+    const userKeyParam = {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            appSecret: appSecret,
+            token: token
+        })
+    }
+    
+    fetch(userKeyUrl, userKeyParam)
+    .then((userKeyData) => {return userKeyData.json()})
+    .then((userKeyRes) => {
+        document.querySelector('body').innerHTML += 'https://' + window.location.host + window.location.pathname + '?secret=' +localStorage.getItem('appSecret')+'&token='+ userKeyRes.accessToken
     })
     .catch((error) => console.log(error));
 }

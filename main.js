@@ -34,6 +34,7 @@ var qs = getQueryStringObject()
 
 const accessToken = qs.token
 const appSecret = qs.secret
+
 if (accessToken && appSecret) {
     const i = CryptoJS.SHA256(accessToken + appSecret).toString(CryptoJS.enc.Hex)
 

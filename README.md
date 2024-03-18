@@ -17,3 +17,15 @@
 5. 그럼 끝!
 
 ~~앱 인증 등 초기설정이 잘 안돌아갈 수 있습니다냥 저는 이미 설정 끝냐서.. 이슈주시면 수정해드릴게요...~~
+
+# For Foreign Users
+ummmmmmmmm..... I think you don't need this software due to 2 reasons...
+
+1. You can access Twitch.... but not in South Korea. we need to use Chzzk, which is NOT yet developed for API users.
+2. I think many of you have account in Mastodon, not Misskey... Because Misskey is not much kind to non-japanese developers;;
+
+So, this software basically, publishes some notes on MISSKEY BASED SOFTWARE while you broadcasting through OBS.
+
+Your OBS -> Browser source -> notes on misskey
+
+If you can use API for your broadcasting host and not interested in Misskey, I swear that you want to click the back button right now :3

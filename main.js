@@ -54,12 +54,15 @@ if (accessToken && appSecret) {
         credentials: 'omit'
     }
 
+    var noteId
+    var renoteParam
+
     function sendNote() {
         fetch(noteUrl, noteParam)
         .then((resultData) => {return resultData.json()})
         .then(result)
         .catch(err => { 
-            document.querySelector('body').innerHTML += '<div>먼지몰라두 망해써여...힝</div>'
+            document.querySelector('body').innerHTML += '<div style="color=white;">먼지몰라두 망해써여...힝</div>'
          })
     }
 
@@ -67,10 +70,23 @@ if (accessToken && appSecret) {
         fetch(noteUrl, noteParam)
         .then((resultData) => {return resultData.json()})
         .then((result) => {
+            noteId = result.id
+            renoteParam = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    i: i,
+                    renoteId: noteId,
+                    visibility: SETTINGS.misskey.visibility
+                }),
+                credentials: 'omit'
+            }
             note = setInterval(sendNote, SETTINGS.misskey.intervalHour*3600*1000)
         })
         .catch(err => { 
-            document.querySelector('body').innerHTML += '<div>먼지몰라두 망해써여...힝</div>'
+            document.querySelector('body').innerHTML += '<div style="color=white;">먼지몰라두 망해써여...힝</div>'
          })
         
     })

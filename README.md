@@ -1,6 +1,6 @@
 # obstomisskey
 
-~~이게 다냥 치지직에 API가 없어서 그렇다냥~~
+~~이게 다냥 치지직에 API가 없어서 그렇다냥~~ 치지직API [찾았어요](https://api.chzzk.naver.com/service/v1/channels/1bba9a34d4d2b8b998c36c5cdbc9f4fe).
 
 하지만 저는 애초에 브라우저-선호-클라이언트형 인간이기에.... 이걸 계속 유지할 것 같습니다냥.
 

@@ -58,7 +58,7 @@ if (accessToken && appSecret) {
     var renoteParam
 
     function sendNote() {
-        fetch(noteUrl, noteParam)
+        fetch(noteUrl, renoteParam)
         .then((resultData) => {return resultData.json()})
         .then(result)
         .catch(err => { 

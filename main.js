@@ -39,6 +39,8 @@ if (accessToken && appSecret) {
     const i = CryptoJS.SHA256(accessToken + appSecret).toString(CryptoJS.enc.Hex)
     console.log(i)
 
+    var noteId
+
     const noteUrl = 'https://'+SETTINGS.misskey.host+'/api/notes/create'
     const noteText = SETTINGS.misskey.noteText.replace('{url}', SETTINGS.live.url)
     const noteParam = {
@@ -53,14 +55,28 @@ if (accessToken && appSecret) {
         }),
         credentials: 'omit'
     }
+    const deleteUrl = 'https://'+SETTINGS.misskey.host+'/api/notes/delete'
+    const deleteParam = {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            i: i,
+            noteId: noteId,
+        }),
+        credentials: 'omit'
+    }
 
-    var noteId
     var renoteParam
 
     function sendNote() {
-        fetch(noteUrl, renoteParam)
+        fetch(deleteUrl, deleteParam)
+        fetch(noteUrl, noteParam)
         .then((resultData) => {return resultData.json()})
-        .then(result)
+        .then((result) => {
+            noteId = result.id
+        })
         .catch(err => { 
             document.querySelector('body').innerHTML += '<div style="color=white;">먼지몰라두 망해써여...힝</div>'
          })
@@ -71,18 +87,6 @@ if (accessToken && appSecret) {
         .then((resultData) => {return resultData.json()})
         .then((result) => {
             noteId = result.id
-            renoteParam = {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                },
-                body: JSON.stringify({
-                    i: i,
-                    renoteId: noteId,
-                    visibility: SETTINGS.misskey.visibility
-                }),
-                credentials: 'omit'
-            }
             note = setInterval(sendNote, SETTINGS.misskey.intervalHour*3600*1000)
         })
         .catch(err => { 

@@ -72,14 +72,17 @@ if (accessToken && appSecret) {
 
     function sendNote() {
         fetch(deleteUrl, deleteParam)
-        fetch(noteUrl, noteParam)
-        .then((resultData) => {return resultData.json()})
-        .then((result) => {
-            noteId = result.id
+        .then(r => {
+            fetch(noteUrl, noteParam)
+            .then((resultData) => {return resultData.json()})
+            .then((result) => {
+                noteId = result.id
+            })
+            .catch(err => { 
+                document.querySelector('body').innerHTML += '<div style="color=white;">먼지몰라두 망해써여...힝</div>'
+             })
         })
-        .catch(err => { 
-            document.querySelector('body').innerHTML += '<div style="color=white;">먼지몰라두 망해써여...힝</div>'
-         })
+        
     }
 
     window.addEventListener('obsStreamingStarting', function(event) {

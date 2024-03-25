@@ -39,7 +39,7 @@ if (accessToken && appSecret) {
     const i = CryptoJS.SHA256(accessToken + appSecret).toString(CryptoJS.enc.Hex)
     console.log(i)
 
-    var noteId
+    let noteId
 
     const noteUrl = 'https://'+SETTINGS.misskey.host+'/api/notes/create'
     const noteText = SETTINGS.misskey.noteText.replace('{url}', SETTINGS.live.url)
@@ -68,7 +68,7 @@ if (accessToken && appSecret) {
         credentials: 'omit'
     }
 
-    var renoteParam
+    let renoteParam
 
     function sendNote() {
         fetch(deleteUrl, deleteParam)
